@@ -1,0 +1,38 @@
+name: BOM CI/CD Pipeline
+
+# Trigger on pushes to ANY branch
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+
+      # STEP 1: Always verify the BOM compiles correctly (runs on ALL branches)
+      - name: Verify Build
+        run: ./gradlew build
+
+      # STEP 2: Only officially publish if this is the master/main branch
+      - name: Publish to GitHub Packages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: ./gradlew publish
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
