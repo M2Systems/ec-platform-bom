@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - '**'
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build-and-publish:
@@ -29,9 +31,9 @@ jobs:
       - name: Verify Build
         run: ./gradlew build
 
-      # STEP 2: Only officially publish if this is the master/main branch
+      # STEP 2: Only officially publish if this is a Git Tag (e.g. v1.2.0)
       - name: Publish to GitHub Packages
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: ./gradlew publish
         env:
           GITHUB_ACTOR: ${{ github.actor }}

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.m2syscorp'
-version = '1.2'
+version = '1.2.0'
 
 dependencies {
     constraints {
@@ -17,12 +17,14 @@ dependencies {
 
         // Core Utilities
         api 'commons-codec:commons-codec:1.16.1'
-        api 'commons-beanutils:commons-beanutils:1.9.4'
+        api 'commons-beanutils:commons-beanutils:1.11.0'
         api 'commons-net:commons-net:3.10.0'
         api 'io.netty:netty-all:4.1.109.Final'
         api 'com.thoughtworks.xstream:xstream:1.4.21'
         api 'xalan:xalan:2.7.3'
         api 'com.fasterxml.jackson.core:jackson-annotations:2.14.2'
+        api 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+        api 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 
         // Databases
         api 'org.postgresql:postgresql:42.7.2'
