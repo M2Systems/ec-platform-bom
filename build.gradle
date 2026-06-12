@@ -1,0 +1,78 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+}
+
+group = 'com.m2syscorp'
+version = '1.2.0'
+
+dependencies {
+    constraints {
+        // Logging
+        api 'org.apache.logging.log4j:log4j-api:2.23.1'
+        api 'org.apache.logging.log4j:log4j-core:2.23.1'
+        api 'org.apache.logging.log4j:log4j-1.2-api:2.23.1'
+        api 'org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1'
+        api 'org.slf4j:slf4j-api:2.0.12'
+
+        // Core Utilities
+        api 'commons-codec:commons-codec:1.16.1'
+        api 'commons-beanutils:commons-beanutils:1.11.0'
+        api 'commons-net:commons-net:3.10.0'
+        api 'io.netty:netty-all:4.1.109.Final'
+        api 'com.thoughtworks.xstream:xstream:1.4.21'
+        api 'xalan:xalan:2.7.3'
+        api 'com.fasterxml.jackson.core:jackson-annotations:2.14.2'
+        api 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+        api 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+
+        // Databases
+        api 'org.postgresql:postgresql:42.7.2'
+        api 'com.oracle.database.jdbc:ojdbc8:19.8.0.0'
+        api 'com.oracle.database.jdbc:ojdbc11:21.11.0.0'
+
+        // CXF & Web Services
+        api 'org.apache.cxf:cxf-rt-frontend-jaxws:4.0.4'
+        api 'org.apache.cxf:cxf-rt-transports-http:4.0.4'
+        api 'org.apache.cxf:cxf-rt-transports-http-jetty:4.0.4'
+        api 'org.apache.cxf:cxf-rt-features-logging:4.0.4'
+
+        // Jakarta Namespace & JAXB/JAX-WS Impl
+        api 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+        api 'com.sun.mail:jakarta.mail:2.0.1'
+        api 'com.sun.activation:jakarta.activation:2.0.1'
+        api 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+        api 'jakarta.xml.ws:jakarta.xml.ws-api:4.0.2'
+        api 'jakarta.jws:jakarta.jws-api:3.0.0'
+        api 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+        api 'com.sun.xml.ws:jaxws-rt:4.0.4'
+
+        // IBM MQ & SSH & Security
+        api 'com.ibm.mq:com.ibm.mq.allclient:9.4.0.0'
+        api 'sshtools:j2ssh-core:0.2.9'
+        api 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+        api 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
+
+        // Testing & Tooling
+        api 'org.junit.jupiter:junit-jupiter:5.10.2'
+        api 'com.github.spotbugs:spotbugs-annotations:4.8.5'
+    }
+}
+
+publishing {
+    publications {
+        myPlatform(MavenPublication) {
+            from components.javaPlatform
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/M2Systems/ec-platform-bom")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
+                password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
+            }
+        }
+    }
+}
