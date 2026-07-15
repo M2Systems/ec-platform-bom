@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.m2syscorp'
-version = '1.2.0'
+version = '1.2.2'
 
 dependencies {
     constraints {
@@ -63,6 +63,10 @@ dependencies {
         api 'org.mockito:mockito-junit-jupiter:5.11.0'
         api 'com.icegreen:greenmail-junit5:2.0.1'
         api 'org.mockftpserver:MockFtpServer:3.2.0'
+        api 'org.xmlunit:xmlunit-core:2.10.0'
+        api 'org.testcontainers:testcontainers:1.20.4'
+        api 'org.testcontainers:junit-jupiter:1.20.4'
+        api 'org.testcontainers:postgresql:1.20.4'
     }
 }
 
