@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.m2syscorp'
-version = '1.2.2'
+version = '1.2.3'
 
 dependencies {
     constraints {
@@ -51,9 +51,11 @@ dependencies {
 
         // IBM MQ & SSH & Security
         api 'com.ibm.mq:com.ibm.mq.allclient:9.4.0.0'
-        api 'org.apache.sshd:sshd-core:2.12.1'
-        api 'org.apache.sshd:sshd-sftp:2.12.1'
-        api 'org.apache.sshd:sshd-scp:2.12.1'
+        // 2.15 is the first release with Bouncy Castle backed ed25519; 2.12 needs
+        // the net.i2p eddsa jar for it, which we never shipped.
+        api 'org.apache.sshd:sshd-core:2.15.0'
+        api 'org.apache.sshd:sshd-sftp:2.15.0'
+        api 'org.apache.sshd:sshd-scp:2.15.0'
         api 'org.bouncycastle:bcprov-jdk18on:1.78.1'
         api 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
 
