@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.m2syscorp'
-version = '1.2.3'
+version = '1.2.4'
 
 dependencies {
     constraints {
@@ -50,14 +50,20 @@ dependencies {
         api 'com.sun.xml.ws:jaxws-rt:4.0.4'
 
         // IBM MQ & SSH & Security
-        api 'com.ibm.mq:com.ibm.mq.allclient:9.4.0.0'
+        // 9.4.0.26 is the 9.4 LTS update that fixes CVE-2026-12666 (XXE in the
+        // RFH2 parser of the MQ classes for Java, CVSS 8.1). The jakarta client
+        // is the same release built on Jakarta Messaging.
+        api 'com.ibm.mq:com.ibm.mq.allclient:9.4.0.26'
+        api 'com.ibm.mq:com.ibm.mq.jakarta.client:9.4.0.26'
         // 2.15 is the first release with Bouncy Castle backed ed25519; 2.12 needs
         // the net.i2p eddsa jar for it, which we never shipped.
         api 'org.apache.sshd:sshd-core:2.15.0'
         api 'org.apache.sshd:sshd-sftp:2.15.0'
         api 'org.apache.sshd:sshd-scp:2.15.0'
-        api 'org.bouncycastle:bcprov-jdk18on:1.78.1'
-        api 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
+        // The release the MQ client above is built on; SSHD runs on it as well.
+        api 'org.bouncycastle:bcprov-jdk18on:1.84'
+        api 'org.bouncycastle:bcpkix-jdk18on:1.84'
+        api 'org.bouncycastle:bcutil-jdk18on:1.84'
 
         // Testing & Tooling
         api 'org.junit.jupiter:junit-jupiter:5.10.2'
